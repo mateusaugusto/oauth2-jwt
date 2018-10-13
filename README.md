@@ -20,21 +20,21 @@ keytool -list -rfc --keystore jwt.jks | openssl x509 -inform pem -pubkey
 ```
 Copy from (including) "-----BEGIN PUBLIC KEY-----" to (including) "-----END PUBLIC KEY-----" and save it in a file. You'll need this later in your resource servers.
 
-There's a custom [User](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/model/entity/User.java) class which implements the UserDetails interface and has all the required methods and an additional "email" field;
+There's a custom [User](src/main/java/com/service/oauth2/model/entity/User.java) class which implements the UserDetails interface and has all the required methods and an additional "email" field;
 
-The [User](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/model/entity/User.java) has multiple [Roles](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/model/entity/Role.java) and the [Roles](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/model/entity/Role.java) have multiple [Permissions](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/model/entity/Permission.java).
+The [User](src/main/java/com/service/oauth2/model/entity/User.java) has multiple [Roles](src/main/java/com/service/oauth2/model/entity/Role.java) and the [Roles](src/main/java/com/service/oauth2/model/entity/Role.java) have multiple [Permissions](src/main/java/com/service/oauth2/model/entity/Permission.java).
 
 I'm using soft deletes in the database and in order to achieve that in our code, in the above entity classes I use the @Where and @WhereJoinTable annotations. 
 
 Check [spring-boot-jpa-soft-delete](https://github.com/dzinot/spring-boot-jpa-soft-delete) project for more info.
 
-There's the [UserRepository](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/repository/) in which there are 2 methods, one for finding a [User](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/model/entity/User.java) entity which is not deleted by username and the other by email.
+There's the [UserRepository](src/main/java/com/service/oauth2/repository/) in which there are 2 methods, one for finding a [User](src/main/java/com/service/oauth2/model/entity/User.java) entity which is not deleted by username and the other by email.
 
-In order to use our custom [User](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/model/entity/User.java) object we must provide with a [CustomUserDetailsService](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/service/) which implements the UserDetailsService. The "loadUserByUsername" method is overriden and set up to work with our logic.
+In order to use our custom [User](src/main/java/com/service/oauth2/model/entity/User.java) object we must provide with a [CustomUserDetailsService](src/main/java/com/service/oauth2/service/) which implements the UserDetailsService. The "loadUserByUsername" method is overriden and set up to work with our logic.
 
 Now we need to somehow configure OAuth2.
 
-To do this, there's an [OAuth2Configuration](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/configuration/) configuration class where we do the following:
+To do this, there's an [OAuth2Configuration](src/main/java/com/service/oauth2/configuration/) configuration class where we do the following:
 ```
 @Configuration
 @EnableAuthorizationServer
@@ -67,7 +67,7 @@ protected JwtAccessTokenConverter jwtAccessTokenConverter() {
 }
 ```
 
-Next we set the refresh token to use the [CustomUserDetailsService](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/service/).
+Next we set the refresh token to use the [CustomUserDetailsService](src/main/java/com/service/oauth2/service/).
 ```
 @Configuration
 protected static class GlobalAuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
@@ -84,7 +84,7 @@ protected static class GlobalAuthenticationManagerConfiguration extends GlobalAu
 }
 ```
 
-And least, here's the Spring [WebSecurityConfiguration](src/main/java/com/kristijangeorgiev/spring/boot/oauth2/jwt/configuration/WebSecurityConfiguration.java).
+And least, here's the Spring [WebSecurityConfiguration](src/main/java/com/service/oauth2/configuration/WebSecurityConfiguration.java).
 
 ## Installing
 
