@@ -40,11 +40,21 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("webapp").authorizedGrantTypes("implicit", "refresh_token", "password")
-				.authorities("ROLE_TRUSTED").resourceIds("ms/user").scopes("read", "write").autoApprove(true)
-				.accessTokenValiditySeconds(60000).refreshTokenValiditySeconds(60000).and().withClient("server")
-				.secret("secret").authorizedGrantTypes("refresh_token", "authorization_code")
-				.authorities("ROLE_TRUSTED").resourceIds("app/admin").scopes("read", "write").autoApprove(true);
+		clients.inMemory()
+				.withClient("webapp")
+				.authorizedGrantTypes("implicit", "refresh_token", "password")
+				.authorities("ROLE_TRUSTED")
+				.resourceIds("ms/user")
+				.scopes("read", "write")
+				.accessTokenValiditySeconds(60000)
+				.refreshTokenValiditySeconds(60000)
+				.and()
+				.withClient("server")
+				.secret("secret")
+				.authorizedGrantTypes("refresh_token", "authorization_code")
+				.authorities("ROLE_TRUSTED")
+				.resourceIds("app/admin")
+				.scopes("read", "write");
 	}
 
 	@Override

@@ -1,46 +1,36 @@
-# Eclipse
+eclipse
+.classpath
 .project
-.metadata
-.gradle
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
 .settings/
-.loadpath
+*.launch
 
-# Java
-*.class
+# Intellij
+.idea/
+*.iml
+*.iws
+.directory
 
-# Package Files
-*.jar
-*.war
-*.ear
+# Mac
+.DS_Store
 
 # Maven
+log/
 target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/
-mvnw
-mvnw.cmd
-!.mvn/wrapper/maven-wrapper.jar
 
-# STS (Spring Tool Suite)
-.springBeans
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
+*.tlog
+*~
 
-# Locally stored "Eclipse launch configurations"
-*.launch
+TelosysTools
+telosys-tools.cfg
+.sass-cache/**
+env.sh
+dump.json
+maven-wrapper.properties
+mvnw.*
+npm-debug.log
+imedicina-app.ipr
+
+# dev application for mac users
+application-mac.yml
+
+bin/
