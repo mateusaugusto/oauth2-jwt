@@ -1,13 +1,11 @@
 package com.service.oauth2.model.entity;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import lombok.Data;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-
-import lombok.Data;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
